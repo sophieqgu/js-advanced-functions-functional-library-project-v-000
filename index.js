@@ -20,8 +20,21 @@ const fi = (function() {
       return collection;
     },
 
-    map: function() {
-
+    map: function(collection, callback) {
+      const newCollection = [];
+      if (Array.isArray(collection)) {
+        collection.forEach( element =>
+          newCollection.push(callback(element));
+        )
+      } else { // collection is an Object
+        for (const key in collection) {
+          if (collection.hasOwnProperty(key)) {
+            const element = collection[key];
+            newCollection.push(callback(element));
+          }
+        }
+      }
+      return newCollection;
     },
 
     reduce: function() {
